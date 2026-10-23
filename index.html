@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksplorasi Delapan Dimensi Fitrah - Panduan Edukasi Interaktif</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome (Unicode & Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f4f7f6',
+                            100: '#e3ece8',
+                            200: '#c5d8cf',
+                            500: '#2e7d32',
+                            600: '#256528',
+                            700: '#1b4d1e',
+                            800: '#133715',
+                            accent: '#d97706'
+                        },
+                        warm: {
+                            bg: '#fbf9f5',
+                            card: '#ffffff',
+                            subtle: '#f3efe6',
+                            text: '#2c3e50',
+                            muted: '#6c7a89'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #fbf9f5;
+            color: #2c3e50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- Chosen Palette: Warm Neutral Harmony (Warm Sand, Emerald Green, Amber Accent) -->
+    <!-- Application Structure Plan: 
+         - Top Hero Section: Title, Overview, and Quick Nav.
+         - Section 1: Dashboard Overview (Chart.js Radar Chart showing the 8 Dimensions and their balance + Dynamic stats).
+         - Section 2: Interactive Explorer (Tabbed & Cards view for exploring each of the 8 Dimensions: Imand/Keimanan, Belajar, Bakat, Perkembangan/Seksualitas, Jasmani, Estetika/Bahasa, Individualitas/Sosial, Alam/Lingkungan).
+         - Section 3: Educational Roadmap / Age Stage Guide (Interactive age-slider/stepper filtering how Fitrah develops from 0-7, 7-10, 10-14, and >14 years).
+         - Section 4: Self-Assessment & Reflection Checklists (Interactive tool for parents & educators to evaluate child development support).
+         - Section 5: Implementation Matrix (Practical recommendations for home and school).
+    -->
+    <!-- Visualization & Content Choices:
+         - Radar Chart (Chart.js) -> Visualizing 8 Dimensions balance. Ideal for multi-dimensional psychological & spiritual models.
+         - Interactive Age Filter -> HTML/JS -> Filters developmental guidelines dynamically.
+         - Interactive Dimension Cards -> Dynamic updates to detailed modal/drawer without layout shift.
+         - Visual Badges & Icons -> Unicode / FontAwesome (No SVG image assets used).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header Navigation -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-warm-subtle shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <span class="text-2xl text-brand-500 font-bold"><i class="fa-solid font-normal fa-seedling"></i> FitrahEdu</span>
+                <span class="hidden md:inline border-l border-gray-300 h-5"></span>
+                <span class="hidden md:inline text-xs text-warm-muted font-medium uppercase tracking-wider">Eksplorasi Delapan Dimensi Fitrah</span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-warm-text">
+                <a href="#overview" class="hover:text-brand-500 transition-colors">Ringkasan</a>
+                <a href="#explorer" class="hover:text-brand-500 transition-colors">8 Dimensi</a>
+                <a href="#roadmap" class="hover:text-brand-500 transition-colors">Peta Usia</a>
+                <a href="#assessment" class="hover:text-brand-500 transition-colors">Evaluasi Mandiri</a>
+            </nav>
+            <a href="#explorer" class="bg-brand-500 text-white hover:bg-brand-600 px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition-all">
+                Mulai Eksplorasi
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero & Intro Section -->
+        <section class="bg-gradient-to-br from-white to-brand-50/60 rounded-2xl p-6 sm:p-10 border border-warm-subtle shadow-sm">
+            <div class="max-w-3xl">
+                <span class="inline-block px-3 py-1 bg-brand-100 text-brand-800 rounded-full text-xs font-semibold mb-4">
+                    Konsep Pendidikan Berbasis Fitrah (Fitrah Based Education)
+                </span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-warm-text tracking-tight mb-4">
+                    Menumbuhkan Potensi Hakiki Melalui Delapan Dimensi Fitrah
+                </h1>
+                <p class="text-warm-muted leading-relaxed text-base sm:text-lg mb-6">
+                    Fitrah adalah cetak biru potensi bawaan lahir yang dianugerahkan Allah SWT kepada setiap manusia. 
+                    Pendidikan berbasis fitrah tidak bertujuan mencetak anak sesuai ambisi luar, melainkan merawat, 
+                    menumbuhkan, dan mematangkan 8 dimensi fitrah dasar agar tumbuh harmonis sesuai peran peradabannya.
+                </p>
+                <div class="flex flex-wrap gap-4 text-xs font-medium text-warm-text">
+                    <div class="flex items-center bg-white px-3 py-2 rounded-lg border border-warm-subtle shadow-xs">
+                        <i class="fa-solid fa-heart-pulse text-red-500 mr-2"></i> Holistik & Seimbang
+                    </div>
+                    <div class="flex items-center bg-white px-3 py-2 rounded-lg border border-warm-subtle shadow-xs">
+                        <i class="fa-solid fa-child text-brand-500 mr-2"></i> Sesuai Tahap Perkembangan
+                    </div>
+                    <div class="flex items-center bg-white px-3 py-2 rounded-lg border border-warm-subtle shadow-xs">
+                        <i class="fa-solid fa-compass text-amber-500 mr-2"></i> Panduan Orang Tua & Pendidik
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Visual Overview Dashboard -->
+        <section id="overview" class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-subtle shadow-sm">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-warm-text mb-2">Peta Keseimbangan Dimensi Fitrah</h2>
+                <p class="text-warm-muted text-sm">
+                    Bagian ini menyajikan gambaran visual bagaimana ke-8 dimensi fitrah saling melengkapi. 
+                    Setiap dimensi memegang peran vital dalam membentuk kepribadian yang utuh (*Insan Kamil*). 
+                    Interaksikan dengan grafik di bawah untuk melihat proporsi penting tiap elemen.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Chart Box -->
+                <div class="lg:col-span-6 flex flex-col items-center">
+                    <div class="chart-container">
+                        <canvas id="fitrahRadarChart"></canvas>
+                    </div>
+                    <p class="text-xs text-warm-muted mt-2 text-center">
+                        *Grafik menunjukkan keharmonisan integratif dari 8 ranah pengembangan fitrah.
+                    </p>
+                </div>
+
+                <!-- Strategic Summary Cards -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="p-4 bg-brand-50/50 rounded-xl border border-brand-100 flex items-start space-x-4">
+                        <div class="p-3 bg-brand-500 text-white rounded-lg text-lg">
+                            <i class="fa-solid fa-kaaba"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-warm-text text-sm">Fitrah Keimanan (Pondasi Utama)</h3>
+                            <p class="text-xs text-warm-muted mt-1 leading-relaxed">
+                                Kebutuhan bawaan untuk mengenali dan mencintai Sang Pencipta. Menjadi orientasi nilai moral dan spiritual sepanjang hayat.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-amber-50/50 rounded-xl border border-amber-100 flex items-start space-x-4">
+                        <div class="p-3 bg-amber-500 text-white rounded-lg text-lg">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-warm-text text-sm">Fitrah Belajar & Bakat (Mesin Pertumbuhan)</h3>
+                            <p class="text-xs text-warm-muted mt-1 leading-relaxed">
+                                Dorongan alami untuk bernalar, mengeksplorasi, dan mematangkan keunikan peran/keahlian spesifik individual.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 bg-blue-50/50 rounded-xl border border-blue-100 flex items-start space-x-4">
+                        <div class="p-3 bg-blue-500 text-white rounded-lg text-lg">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-warm-text text-sm">Fitrah Sosial, Seksualitas, & Alam (Sinergi Ekosistem)</h3>
+                            <p class="text-xs text-warm-muted mt-1 leading-relaxed">
+                                Kematangan berinteraksi dengan sesama, pemahaman identitas gender/peran pria-wanita, serta harmoni terhadap lingkungan sekitar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive 8 Dimensions Explorer -->
+        <section id="explorer" class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-subtle shadow-sm">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-warm-text mb-2">Eksplorasi Detail 8 Dimensi Fitrah</h2>
+                <p class="text-warm-muted text-sm">
+                    Setiap dimensi memiliki karakteristik khusus, indikator pertumbuhan, dan pola pengasuhan yang sesuai. 
+                    Pilih salah satu dimensi di bawah ini untuk mempelajari definisi, indikator, dan prinsip pengembangannya.
+                </p>
+            </div>
+
+            <!-- Dimension Grid Buttons -->
+            <div id="dimensionGrid" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+                <!-- Dynamic grid generated by JS -->
+            </div>
+
+            <!-- Detailed Content Card Container -->
+            <div id="dimensionDetailCard" class="bg-warm-bg rounded-xl p-6 border border-warm-subtle transition-all duration-300">
+                <!-- JS Inserted Detail Content -->
+            </div>
+        </section>
+
+        <!-- Section 3: Interactive Age Stage Roadmap -->
+        <section id="roadmap" class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-subtle shadow-sm">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-warm-text mb-2">Tahapan Perkembangan Fitrah Berdasarkan Usia</h2>
+                <p class="text-warm-muted text-sm">
+                    Penumbuhan fitrah harus memperhatikan ritme usia dan kesiapan mental/fisik anak (*Aql & Baloogh*). 
+                    Pilih kelompok usia di bawah untuk melihat fokus edukasi dan prioritas pendampingan yang disarankan.
+                </p>
+            </div>
+
+            <!-- Stage Selector Buttons -->
+            <div class="flex flex-wrap gap-2 mb-6 border-b border-warm-subtle pb-4">
+                <button onclick="setAgeStage('0-7')" id="btn-stage-0-7" class="stage-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-brand-500 text-white shadow-xs">
+                    <i class="fa-solid fa-baby mr-1"></i> Usia 0 - 7 Tahun (Ibu & Rumah)
+                </button>
+                <button onclick="setAgeStage('7-10')" id="btn-stage-7-10" class="stage-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-warm-subtle text-warm-text hover:bg-gray-200">
+                    <i class="fa-solid fa-child-reaching mr-1"></i> Usia 7 - 10 Tahun (Pre-Aqil Baligh)
+                </button>
+                <button onclick="setAgeStage('10-14')" id="btn-stage-10-14" class="stage-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-warm-subtle text-warm-text hover:bg-gray-200">
+                    <i class="fa-solid fa-user-graduate mr-1"></i> Usia 10 - 14 Tahun (Transisi Baligh)
+                </button>
+                <button onclick="setAgeStage('>14')" id="btn-stage-gt14" class="stage-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-warm-subtle text-warm-text hover:bg-gray-200">
+                    <i class="fa-solid fa-user-check mr-1"></i> Usia > 14 Tahun (Aqil Baligh / Mandiri)
+                </button>
+            </div>
+
+            <!-- Stage Content View -->
+            <div id="stageContentView" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- JS populated -->
+            </div>
+        </section>
+
+        <!-- Section 4: Self-Assessment & Reflection Tool -->
+        <section id="assessment" class="bg-white rounded-2xl p-6 sm:p-8 border border-warm-subtle shadow-sm">
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-warm-text mb-2">Evaluasi Mandiri Pengasuhan Fitrah</h2>
+                <p class="text-warm-muted text-sm">
+                    Gunakan daftar periksa interaktif ini untuk merefleksikan sejauh mana lingkungan rumah atau sekolah telah mendukung 
+                    tumbuh kembang fitrah anak secara optimal. Centang kriteria yang sudah berjalan.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Checklist items -->
+                <div class="space-y-3" id="checklistContainer">
+                    <!-- Dynamic JS check items -->
+                </div>
+
+                <!-- Result Score Display -->
+                <div class="bg-brand-50/60 rounded-xl p-6 border border-brand-100 flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-brand-800 text-lg mb-2">Skor Harmoni Fitrah Lingkungan</h3>
+                        <p class="text-xs text-warm-muted mb-4">
+                            Hasil ini memberikan indikasi umum efektivitas dukungan ekosistem pendidikan terhadap kebebasan berkembang fitrah anak.
+                        </p>
+                        <div class="flex items-baseline space-x-2">
+                            <span id="scoreText" class="text-4xl font-extrabold text-brand-600">0%</span>
+                            <span class="text-xs text-warm-muted font-medium">Tercapai</span>
+                        </div>
+                        <!-- Progress bar -->
+                        <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden mt-3">
+                            <div id="scoreBar" class="bg-brand-500 h-full w-0 transition-all duration-500"></div>
+                        </div>
+                    </div>
+
+                    <div id="scoreAdvice" class="mt-6 p-4 bg-white rounded-lg border border-warm-subtle text-xs leading-relaxed text-warm-text">
+                        Silakan selesaikan daftar periksa di sebelah kiri untuk melihat rekomendasi penguatan lingkungan pengasuhan.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Implementation Matrix / Recommendations -->
+        <section class="bg-brand-800 text-white rounded-2xl p-6 sm:p-8 shadow-sm">
+            <div class="max-w-3xl mb-6">
+                <h2 class="text-2xl font-bold text-white mb-2">Rekomendasi Praktis Penerapan</h2>
+                <p class="text-brand-100 text-sm">
+                    Implementasi pendidikan berbasis fitrah membutuhkan sinergi utuh antara rumah, sekolah, dan masyarakat.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-warm-text">
+                <div class="bg-white rounded-xl p-5 shadow-xs">
+                    <div class="text-brand-500 text-xl font-bold mb-2">
+                        <i class="fa-solid fa-house-chimney mr-2"></i> Peran Rumah
+                    </div>
+                    <ul class="text-xs space-y-2 text-warm-muted">
+                        <li>• Menjadikan rumah tempat aman mengekspresikan emosi.</li>
+                        <li>• Menjaga dialog iman melalui keteladanan orang tua.</li>
+                        <li>• Menghindari pemaksaan akademik yang terlalu dini.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 shadow-xs">
+                    <div class="text-brand-500 text-xl font-bold mb-2">
+                        <i class="fa-solid fa-school mr-2"></i> Peran Sekolah
+                    </div>
+                    <ul class="text-xs space-y-2 text-warm-muted">
+                        <li>• Menyediakan kurikulum berbasis ketertarikan & minat.</li>
+                        <li>• Mengutamakan proses belajar fasilitatif (*inquiry*).</li>
+                        <li>• Menilai pertumbuhan individu, bukan sekadar rangking.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white rounded-xl p-5 shadow-xs">
+                    <div class="text-brand-500 text-xl font-bold mb-2">
+                        <i class="fa-solid fa-tree mr-2"></i> Peran Lingkungan
+                    </div>
+                    <ul class="text-xs space-y-2 text-warm-muted">
+                        <li>• Memberikan ruang interaksi alam yang memadai.</li>
+                        <li>• Membangun komunitas sosial yang mendidik & ramah anak.</li>
+                        <li>• Menyediakan keteladanan figur dewasa di masyarakat.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-warm-subtle mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-xs text-warm-muted">
+            <p>© Interaktif Delapan Dimensi Fitrah — Modul Pembelajaran Pendidikan Berbasis Fitrah (FBE)</p>
+            <p class="mt-1">Dirancang untuk memfasilitasi pemahaman holistik pengembangan potensi anak secara intuitif.</p>
+            <p class="mt-2 font-semibold text-brand-700">Pengembang: IFS</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data and Interactive Logic -->
+    <script>
+        // Data for 8 Dimensions of Fitrah
+        const fitrahData = [
+            {
+                id: 'iman',
+                name: 'Fitrah Keimanan',
+                icon: 'fa-kaaba',
+                color: 'text-emerald-600',
+                bgColor: 'bg-emerald-50',
+                borderColor: 'border-emerald-200',
+                shortDesc: 'Kerinduan alami mengakui keberadaan Allah SWT sebagai Sang Pencipta.',
+                fullDesc: 'Fitrah Keimanan adalah potensi spiritual bawaan sejak lahir di mana setiap anak telah bersaksi atas kewujudan Allah (QS Al-A\'raf: 172). Tugas pendidik bukanlah menjejali dogma, melainkan membangkitkan rasa kagum, cinta, dan kerinduan anak kepada Sang Maha Pencipta.',
+                indicators: [
+                    'Kekaguman alami pada ciptaan Allah',
+                    'Kecenderungan alami menyukai kebaikan & kebenaran',
+                    'Kemudahan menerima nilai-nilai ketuhanan jika disampaikan secara kasih sayang'
+                ],
+                approaches: [
+                    'Gunakan narasi kecintaan & keindahan Allah pada usia dini (0-7 th).',
+                    'Kaitkan fenomena alam sehari-hari dengan kebesaran Pencipta.',
+                    'Berikan keteladanan ibadah yang hangat, tanpa ancaman ketakutan berlebih.'
+                ]
+            },
+            {
+                id: 'belajar',
+                name: 'Fitrah Belajar',
+                icon: 'fa-lightbulb',
+                color: 'text-amber-600',
+                bgColor: 'bg-amber-50',
+                borderColor: 'border-amber-200',
+                shortDesc: 'Rasa ingin tahu yang luar biasa dan dorongan alami eksplorasi.',
+                fullDesc: 'Anak lahir sebagai pembelajar sejati. Fitrah belajar ditandai dengan rasa ingin tahu (*curiosity*) yang tinggi, senang bertanya, dan gemar mencoba hal baru. Pendidik bertugas memelihara gairah belajar ini agar tidak padam oleh pemaksaan atau kebosanan.',
+                indicators: [
+                    'Sering mengajukan pertanyaan "Mengapa" dan "Bagaimana"',
+                    'Suka mengeksplorasi benda/lingkungan baru',
+                    'Daya imajinasi dan ketekunan saat mempelajari hal yang disukai'
+                ],
+                approaches: [
+                    'Fasilitasi dengan jawaban yang jujur dan memicu pemikiran lebih lanjut.',
+                    'Hindari memberi beban tugas hafalan formal yang terlalu dini sebelum usia 7 tahun.',
+                    'Sediakan lingkungan kaya stimulasi dan aktivitas berbasis pengalaman nyata.'
+                ]
+            },
+            {
+                id: 'bakat',
+                name: 'Fitrah Bakat',
+                icon: 'fa-star',
+                color: 'text-purple-600',
+                bgColor: 'bg-purple-50',
+                borderColor: 'border-purple-200',
+                shortDesc: 'Keunikan potensi panggil keahlian dan sifat khas individu.',
+                fullDesc: 'Setiap manusia diciptakan unik dengan kombinasi kelebihan dan kekuatan khas (*panggilan peran/peta keahlian*). Fitrah bakat bukan hanya tentang seni atau olahraga, tetapi mencakup sifat, karakter kerja, berfikir, dan gaya interaksi sosial khas.',
+                indicators: [
+                    'Sangat cepat menguasai keterampilan tertentu secara alami',
+                    'Merasa berenergi dan bahagia saat melakukan aktivitas spesifik (*enjoyment*)',
+                    'Menunjukkan hasil yang menonjol tanpa keterpaksaan (*excellence*)'
+                ],
+                approaches: [
+                    'Observasi ragam aktivitas anak tanpa menghakimi.',
+                    'Berikan beragam pengalaman (*ragam aktivitas*) di usia 7-10 tahun.',
+                    'Bantu anak mengidentifikasi kekuatan diri dan mengembangkannya untuk kebermanfaatan.'
+                ]
+            },
+            {
+                id: 'seksualitas',
+                name: 'Fitrah Seksualitas & Perkembangan',
+                icon: 'fa-venus-mars',
+                color: 'text-rose-600',
+                bgColor: 'bg-rose-50',
+                borderColor: 'border-rose-200',
+                shortDesc: 'Pemahaman identitas gender, peran pria/wanita, dan kematangan reproduksi.',
+                fullDesc: 'Fitrah Perkembangan / Seksualitas berkaitan dengan kesadaran identitas diri sebagai laki-laki atau perempuan, serta pemahaman peran sosial dan reproduksinya kelak sesuai aturan syariat, berorientasi membentuk sosok ayah atau ibu yang tangguh.',
+                indicators: [
+                    'Paham akan identitas gendernya dengan bangga dan nyaman',
+                    'Mengetahui batasan aurat dan privasi tubuh',
+                    'Memiliki kedekatan emosional dengan orang tua bersesuaian gender'
+                ],
+                approaches: [
+                    'Dekatkan anak laki-laki ke ayah dan anak perempuan ke ibu secara intensif.',
+                    'Ajarkan privasi dan adab meminta izin (*isti\'dzan*) sejak usia dini.',
+                    'Gantikan istilah tabu dengan edukasi kejujuran dan norma syariat secara bertahap.'
+                ]
+            },
+            {
+                id: 'jasmani',
+                name: 'Fitrah Jasmani (Fisik & Indera)',
+                icon: 'fa-heart-pulse',
+                color: 'text-red-600',
+                bgColor: 'bg-red-50',
+                borderColor: 'border-red-200',
+                shortDesc: 'Kebutuhan fisik untuk bergerak, beraktivitas, dan hidup sehat.',
+                fullDesc: 'Tubuh adalah amanah. Fitrah jasmani meliputi kebutuhan gerak, kecukupan nutrisi toyib, pola tidur, kebersihan, dan pematangan pancaindera sebagai sarana beraktivitas serta beribadah secara optimal.',
+                indicators: [
+                    'Kebutuhan tingginya gerak motorik kasar dan halus',
+                    'Kepekaan inderawi terhadap rasa, bau, suara, dan tekstur',
+                    'Energi dan ketahanan fisik saat beraktivitas outdoor'
+                ],
+                approaches: [
+                    'Beri ruang gerak bebas yang aman di luar ruangan secara rutin.',
+                    'Biasakan makanan halal dan thayyib (bergizi, alami).',
+                    'Latih kedisiplinan menjaga kebersihan diri dan pola hidup sehat.'
+                ]
+            },
+            {
+                id: 'estetika',
+                name: 'Fitrah Estetika & Bahasa',
+                icon: 'fa-comments-dollar',
+                color: 'text-blue-600',
+                bgColor: 'bg-blue-50',
+                borderColor: 'border-blue-200',
+                shortDesc: 'Apresiasi terhadap keindahan, seni, harmoni, dan tutur kata.',
+                fullDesc: 'Manusia menyukai keindahan, kerapian, harmoni nada/visual, dan bahasa yang santun. Fitrah estetika dan bahasa menjadi jembatan ekspresi jiwa, komunikasi rasa, serta keindahan berkarya.',
+                indicators: [
+                    'Kepekaan terhadap keindahan visual, warna, dan keteraturan',
+                    'Kemampuan mengekspresikan perasaan melalui tutur kata atau karya',
+                    'Kecenderungan menyukai nada, ritme, atau cerita yang indah'
+                ],
+                approaches: [
+                    'Bacakan kisah-kisah indah dengan bahasa tulen dan kaya kosa kata.',
+                    'Libatkan anak dalam menata kerapian dan keindahan rumah.',
+                    'Apresiasi karya seni dan ungkapan ekspresif anak secara positif.'
+                ]
+            },
+            {
+                id: 'sosial',
+                name: 'Fitrah Individualitas & Sosial',
+                icon: 'fa-users',
+                color: 'text-indigo-600',
+                bgColor: 'bg-indigo-50',
+                borderColor: 'border-indigo-200',
+                shortDesc: 'Keseimbangan antara kemandirian diri dan kepedulian bersosialisasi.',
+                fullDesc: 'Manusia adalah pribadi yang unik (individual) sekaligus makhluk sosial yang saling membutuhkan. Fitrah ini mengatur kemandirian, kepercayaan diri, emosi pribadi, serta kepekaan empatik dan kolaborasi dalam bermasyarakat.',
+                indicators: [
+                    'Kemampuan menyatakan keinginan pribadi (otonomi)',
+                    'Sikap empati dan mau berbagi dengan sesama',
+                    'Kemampuan beradaptasi dan bekerja sama dalam kelompok'
+                ],
+                approaches: [
+                    'Hargai pendapat anak agar tumbuh kepercayaan diri (individualitas).',
+                    'Ajak anak berinteraksi dengan ragam usia di masyarakat (sosial).',
+                    'Latih penyelesaian konflik secara damai dan adil.'
+                ]
+            },
+            {
+                id: 'alam',
+                name: 'Fitrah Alam / Lingkungan',
+                icon: 'fa-leaf',
+                color: 'text-teal-600',
+                bgColor: 'bg-teal-50',
+                borderColor: 'border-teal-200',
+                shortDesc: 'Keterikatan harmonis dengan alam dan makhluk hidup di sekitarnya.',
+                fullDesc: 'Anak memiliki kedekatan alami dengan unsur alam (tanah, air, tumbuhan, hewan). Fitrah alam menumbuhkan kesadaran ekologis sebagai *khalifah* yang bertugas merawat Bumi dan tidak membuat kerusakan.',
+                indicators: [
+                    'Antusiasme bermain dengan elemen alam (tanah, hujan, tanaman)',
+                    'Rasa kasih sayang pada hewan dan tumbuhan',
+                    'Kepekaan terhadap kebersihan dan kelestarian lingkungan'
+                ],
+                approaches: [
+                    'Sediakan waktu eksplorasi alam (*nature walk*) tanpa ketakutan berlebih akan kotor.',
+                    'Ajak anak merawat hewan peliharaan atau menanam tumbuhan.',
+                    'Tanamkan kebiasaan menghemat air dan mengurangi sampah.'
+                ]
+            }
+        ];
+
+        // Age Stage Data
+        const ageStageData = {
+            '0-7': {
+                title: 'Usia 0 - 7 Tahun (Masa Kehangatan & Bermain)',
+                subtitle: 'Fokus: Keimanan, Kasih Sayang, & Kebiasaan Baik tanpa Beban Hukum/Akademik Formal',
+                cards: [
+                    {
+                        heading: 'Fitrah Keimanan & Bahasa',
+                        text: 'Tanamkan kesan bahwa Allah itu Sangat Pengasih dan Penyayang. Bacakan ayat dan kisah indah. Kenalkan bahasa yang santun.'
+                    },
+                    {
+                        heading: 'Fitrah Belajar & Alam',
+                        text: 'Dunia anak adalah bermain. Biarkan anak bebas mengeksplorasi fisik, alam, tanah, dan air. Hindari pemaksaan baca-tulis-hitung formal.'
+                    },
+                    {
+                        heading: 'Fitrah Seksual & Sosialisasi',
+                        text: 'Anak erat dengan Ibu. Ajarkan adab privat/aurat dasar. Kenalkan identitas gendernya secara alami melalui pakaian dan pengasuhan.'
+                    }
+                ]
+            },
+            '7-10': {
+                title: 'Usia 7 - 10 Tahun (Masa Disiplin & Perkenalan Peran)',
+                subtitle: 'Fokus: Penanaman Adab, Perintah Shalat, Eksplorasi Minat/Bakat',
+                cards: [
+                    {
+                        heading: 'Fitrah Keimanan & Adab',
+                        text: 'Mulai diperintahkan shalat (usia 7 th). Tanamkan ketertiban, logika iman, dan pemahaman konsep kebenaran-kesalahan.'
+                    },
+                    {
+                        heading: 'Fitrah Belajar & Bakat',
+                        text: 'Berikan ragam aktivitas (*multi-experience*). Biarkan mencoba berbagai bidang untuk mengenali potensi unik bawaannya.'
+                    },
+                    {
+                        heading: 'Fitrah Seksualitas & Gender',
+                        text: 'Anak laki-laki makin didekatkan ke Ayah (mempelajari ketegasan & kepemimpinan), anak perempuan ke Ibu. Tidur dipisah.'
+                    }
+                ]
+            },
+            '10-14': {
+                title: 'Usia 10 - 14 Tahun (Masa Pre-Aqil Baligh & Ujian Tanggung Jawab)',
+                subtitle: 'Fokus: Pematangan Nalar (*Aql*), Sanksi Kedisiplinan, & Magang Peran Dewasa',
+                cards: [
+                    {
+                        heading: 'Fitrah Keimanan & Mandiri',
+                        text: 'Konsep konsekuensi dosa/pahala. Penegakan disiplin ibadah secara konsisten (sanksi edukatif jika meninggalkan shalat di usia 10).'
+                    },
+                    {
+                        heading: 'Fitrah Bakat & Fokus',
+                        text: 'Penyempitan minat (*fokus bakat*). Dorong anak magang atau mengerjakan proyek nyata yang melatih tanggung jawab karya.'
+                    },
+                    {
+                        heading: 'Fitrah Seksualitas & Baligh',
+                        text: 'Edukasi kesiapan biologis (haid/mimpi basah), tanggung jawab syariat (*mukallaf*), dan pengukuhan jati diri dewasa.'
+                    }
+                ]
+            },
+            '>14': {
+                title: 'Usia > 14 Tahun (Masa Aqil Baligh / Dewasa Mandiri)',
+                subtitle: 'Fokus: Mandiri Syar\'i & Finansial, Peran Peradaban, & Kemitraan',
+                cards: [
+                    {
+                        heading: 'Fitrah Keimanan & Kepemimpinan',
+                        text: 'Anak bertindak sebagai mitra (*sahabat* orang tua). Memiliki kesadaran penuh akan tujuan hidup dan tanggung jawab mandiri.'
+                    },
+                    {
+                        heading: 'Fitrah Bakat & Kemandirian Finansial',
+                        text: 'Memulai langkah produktif/profesional berdasarkan keahlian bakatnya untuk memberi manfaat nyata bagi masyarakat.'
+                    },
+                    {
+                        heading: 'Fitrah Sosial & Kemasyarakatan',
+                        text: 'Siap mengambil peran dalam masyarakat, berkolaborasi, serta siap membangun keluarga beradab di masa depan.'
+                    }
+                ]
+            }
+        };
+
+        // Checklist Items for Self-Assessment
+        const checklistItems = [
+            'Lingkungan rumah memberi kesempatan anak bermain bebas outdoor minimal 1 jam sehari.',
+            'Orang tua menghindari membentak atau menakut-nakuti anak tentang Allah.',
+            'Anak tidak dipaksa calistung formal sebelum usia 7 tahun.',
+            'Ayah terlibat aktif dalam mendampingi pengasuhan, terutama untuk anak laki-laki.',
+            'Orang tua mendengarkan pertanyaan anak dengan sabar tanpa meremehkan.',
+            'Anak diajarkan adab meminta izin dan batasan aurat tubuh secara konsisten.',
+            'Anak diberikan kesempatan memilih dan mencoba aktivitas sesuai keunikannya.',
+            'Keindahan, kebersihan, dan keteraturan menjadi bagian rutin di dalam rumah.'
+        ];
+
+        let activeDimensionId = 'iman';
+
+        // Initialize Application Logic
+        document.addEventListener('DOMContentLoaded', () => {
+            initRadarChart();
+            renderDimensionGrid();
+            selectDimension('iman');
+            setAgeStage('0-7');
+            initChecklist();
+        });
+
+        // Initialize Chart.js Radar Chart
+        function initRadarChart() {
+            const ctx = document.getElementById('fitrahRadarChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Keimanan', 
+                        'Belajar', 
+                        'Bakat', 
+                        'Seksualitas', 
+                        'Jasmani', 
+                        'Estetika/Bahasa', 
+                        'Sosial/Indiv', 
+                        'Alam'
+                    ],
+                    datasets: [{
+                        label: 'Potensi Fitrah Ideal',
+                        data: [95, 90, 85, 90, 85, 80, 90, 85],
+                        backgroundColor: 'rgba(46, 125, 50, 0.2)',
+                        borderColor: '#2e7d32',
+                        pointBackgroundColor: '#d97706',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#2e7d32',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: '#e2e8f0'
+                            },
+                            grid: {
+                                color: '#f1f5f9'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 11,
+                                    weight: '600',
+                                    family: "'Segoe UI', sans-serif"
+                                },
+                                color: '#2c3e50'
+                            },
+                            ticks: {
+                                display: false,
+                                max: 100
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' Potensi ' + context.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Render Dimension Select Grid
+        function renderDimensionGrid() {
+            const container = document.getElementById('dimensionGrid');
+            container.innerHTML = fitrahData.map(dim => `
+                <button onclick="selectDimension('${dim.id}')" id="btn-dim-${dim.id}" 
+                    class="p-3 rounded-xl border text-left transition-all duration-200 flex flex-col justify-between h-24 hover:shadow-sm">
+                    <div class="flex justify-between items-center w-full">
+                        <i class="fa-solid ${dim.icon} text-lg ${dim.color}"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-warm-muted">Dimensi</span>
+                    </div>
+                    <span class="text-xs font-bold text-warm-text leading-tight mt-1">${dim.name}</span>
+                </button>
+            `).join('');
+        }
+
+        // Select and Display Dimension Details
+        function selectDimension(id) {
+            activeDimensionId = id;
+            const dim = fitrahData.find(d => d.id === id);
+
+            // Update Active State on Buttons
+            fitrahData.forEach(d => {
+                const btn = document.getElementById(`btn-dim-${d.id}`);
+                if (d.id === id) {
+                    btn.className = `p-3 rounded-xl border-2 text-left transition-all duration-200 flex flex-col justify-between h-24 shadow-sm ${d.bgColor} ${d.borderColor}`;
+                } else {
+                    btn.className = `p-3 rounded-xl border border-warm-subtle bg-white text-left transition-all duration-200 flex flex-col justify-between h-24 hover:bg-gray-50`;
+                }
+            });
+
+            // Render Detail Card
+            const card = document.getElementById('dimensionDetailCard');
+            card.innerHTML = `
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-warm-subtle pb-4 mb-4 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="p-3 rounded-xl ${dim.bgColor} ${dim.color} text-2xl border ${dim.borderColor}">
+                            <i class="fa-solid ${dim.icon}"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-warm-text">${dim.name}</h3>
+                            <p class="text-xs text-warm-muted mt-0.5">${dim.shortDesc}</p>
+                        </div>
+                    </div>
+                    <span class="px-3 py-1 bg-white border border-warm-subtle rounded-full text-xs font-medium text-warm-muted">
+                        Panduan Edukasi
+                    </span>
+                </div>
+
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-warm-muted mb-2">Penjelasan Konseptual</h4>
+                        <p class="text-xs sm:text-sm text-warm-text leading-relaxed">${dim.fullDesc}</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-4 rounded-lg border border-warm-subtle">
+                            <h4 class="text-xs font-bold text-brand-800 uppercase tracking-wider mb-2 flex items-center">
+                                <i class="fa-solid fa-magnifying-glass text-brand-500 mr-2"></i> Indikator Tumbuh Fitrah
+                            </h4>
+                            <ul class="text-xs text-warm-muted space-y-2">
+                                ${dim.indicators.map(ind => `<li class="flex items-start"><span class="text-brand-500 mr-2">•</span><span>${ind}</span></li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-warm-subtle">
+                            <h4 class="text-xs font-bold text-amber-800 uppercase tracking-wider mb-2 flex items-center">
+                                <i class="fa-solid fa-hand-holding-heart text-amber-500 mr-2"></i> Pendampingan / Pendekatan
+                            </h4>
+                            <ul class="text-xs text-warm-muted space-y-2">
+                                ${dim.approaches.map(app => `<li class="flex items-start"><span class="text-amber-500 mr-2">•</span><span>${app}</span></li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Set Age Stage View
+        function setAgeStage(stageKey) {
+            const stage = ageStageData[stageKey];
+            
+            // Update Tab Active Styles
+            document.querySelectorAll('.stage-btn').forEach(btn => {
+                btn.className = 'stage-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-warm-subtle text-warm-text hover:bg-gray-200';
+            });
+            
+            const activeMap = {
+                '0-7': 'btn-stage-0-7',
+                '7-10': 'btn-stage-7-10',
+                '10-14': 'btn-stage-10-14',
+                '>14': 'btn-stage-gt14'
+            };
+            
+            document.getElementById(activeMap[stageKey]).className = 'stage-btn px-4 py-2 rounded-lg text-xs font-semibold transition-all bg-brand-500 text-white shadow-xs';
+
+            // Populate Stage Cards
+            const container = document.getElementById('stageContentView');
+            container.innerHTML = stage.cards.map((card, idx) => `
+                <div class="bg-warm-bg p-5 rounded-xl border border-warm-subtle flex flex-col justify-between">
+                    <div>
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-brand-600 bg-brand-100 px-2 py-0.5 rounded">Fokus ${idx + 1}</span>
+                        <h4 class="font-bold text-warm-text text-sm mt-3 mb-2">${card.heading}</h4>
+                        <p class="text-xs text-warm-muted leading-relaxed">${card.text}</p>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-warm-subtle/60 text-[11px] text-brand-700 font-medium flex items-center">
+                        <i class="fa-solid fa-circle-check mr-1.5 text-brand-500"></i> ${stage.title.split(' ')[0]} ${stage.title.split(' ')[1]}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize Self-Assessment Checklist
+        function initChecklist() {
+            const container = document.getElementById('checklistContainer');
+            container.innerHTML = checklistItems.map((item, idx) => `
+                <label class="flex items-start p-3 bg-warm-bg hover:bg-gray-100/80 rounded-lg border border-warm-subtle cursor-pointer transition-colors text-xs text-warm-text">
+                    <input type="checkbox" onchange="updateScore()" class="chk-item mt-0.5 mr-3 rounded border-gray-300 text-brand-600 focus:ring-brand-500">
+                    <span>${item}</span>
+                </label>
+            `).join('');
+        }
+
+        // Calculate and Update Self-Assessment Score
+        function updateScore() {
+            const checkboxes = document.querySelectorAll('.chk-item');
+            const total = checkboxes.length;
+            let checkedCount = 0;
+            
+            checkboxes.forEach(chk => {
+                if (chk.checked) checkedCount++;
+            });
+
+            const percentage = Math.round((checkedCount / total) * 100);
+            
+            document.getElementById('scoreText').innerText = `${percentage}%`;
+            document.getElementById('scoreBar').style.width = `${percentage}%`;
+
+            const adviceBox = document.getElementById('scoreAdvice');
+            if (percentage === 0) {
+                adviceBox.innerHTML = "Silakan selesaikan daftar periksa di sebelah kiri untuk melihat rekomendasi penguatan lingkungan pengasuhan.";
+            } else if (percentage < 50) {
+                adviceBox.innerHTML = "<strong class='text-amber-800'>Tahap Awal Penyesuaian:</strong> Lingkungan masih banyak memuat keterbatasan bagi ekspresi fitrah. Pertimbangkan mengurangi tekanan akademik berlebih dan tingkatkan aktivitas terbuka serta koneksi emosional.";
+            } else if (percentage < 85) {
+                adviceBox.innerHTML = "<strong class='text-brand-700'>Sudah Berjalan Baik:</strong> Sebagian besar aspek fitrah anak sudah terfasilitasi. Fokuskan pada konsistensi peran Ayah dan Ibu serta menjaga kebebasan eksplorasi belajar berbasis minat.";
+            } else {
+                adviceBox.innerHTML = "<strong class='text-brand-800'>Sangat Harmonis:</strong> Ekosistem pengasuhan Anda sangat mendukung tumbuhnya fitrah secara utuh. Pertahankan keselarasan ini dan tingkatkan pematangan peran peradaban anak.";
+            }
+        }
+    </script>
+</body>
+</html>
